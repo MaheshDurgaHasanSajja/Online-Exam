@@ -121,4 +121,31 @@ $config = array(
 	            'rules' => 'trim|required'
 	        ),
 	),
+	'setup_user' => array(
+			array(
+	            'field' => 'email',
+	            'label' => 'Email',
+	            'rules' => 'trim|required|valid_email|callback_check_register_email_exists_or_not'
+	        ),
+	        array(
+	            'field' => 'class_id',
+	            'label' => 'Class',
+	            'rules' => 'trim|required'
+	        ),
+	        array(
+	            'field' => 'gender',
+	            'label' => 'Gender',
+	            'rules' => 'trim|required'
+	        ),
+	        array(
+	            'field' => 'address',
+	            'label' => 'Address',
+	            'rules' => 'trim|required'
+	        ),
+	        array(
+	            'field' => 'name',
+	            'label' => 'Name',
+	            'rules' => 'trim|required'
+	        ),
+	),
 );

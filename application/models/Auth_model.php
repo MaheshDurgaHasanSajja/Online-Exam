@@ -51,8 +51,16 @@ class Auth_model extends CI_Model {
     *
     * @return boolean true or false
     */
-    public function create_user($insert_data) {
+    public function create_user($insert_data, $user_id) {
         try {
+            if ($user_id != "" && $user_id != 0) {
+                $where_array = array(
+                    "id" => $user_id,
+                    "row_status" => 1
+                    );
+                unset($insert_data['created_time'], $insert_data['password']);
+                return $this->db->where($where_array)->update("users", $insert_data);
+            }
             return $this->db->insert("users", $insert_data);
         } catch(Exception $e) {
             log_message("Error: ".$this->db->__error_message());

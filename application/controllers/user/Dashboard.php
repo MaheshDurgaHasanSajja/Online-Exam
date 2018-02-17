@@ -44,7 +44,7 @@ class Dashboard extends CI_Controller {
      */
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('exams_model'));
+        $this->load->model(array('exams_model', 'classes_model', 'auth_model'));
         $this->load->library(array('session', 'form_validation', 'authorization'));
         $this->load->helper(array('datatable'));
         $this->form_validation->set_error_delimiters('<label class="error">', '</label>');

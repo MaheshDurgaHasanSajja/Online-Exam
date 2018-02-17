@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>INSPINIA</title>
+  <title>Online | Exam</title>
 
   <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -64,22 +64,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="row">
 
       <div class="col-md-6">
-        <h2 class="font-bold">Welcome to IN+</h2>
+        <h2 class="font-bold">Online Exam</h2>
 
         <p>
-          Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+          For registration, You need to pay 200/-. If you already have an account please try login.
         </p>
 
         <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+          After logged in, you can see the list of available exams.
         </p>
 
         <p>
-          When an unknown printer took a galley of type and scrambled it to make a type specimen book.
-        </p>
-
-        <p>
-          <small>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</small>
+          Each and every exam has time limit defined by an admin. So you have to compelte that in time. If you are running out and you can not able to submit the exam, In the last second the exam will be automatically submitted.
         </p>
 
       </div>

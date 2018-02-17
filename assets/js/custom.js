@@ -20,12 +20,66 @@
     initUsersTable();
     initClassOnchange();
     initUserAvailableExamsDataTable();
+    initAdminUserCreationvalidation();
 }
 
 function initValidators() {
     jQuery.validator.addMethod("alphanumeric", function(value, element) {
         return this.optional(element) || /^[a-zA-Z0-9\s-_+=.,/!@#$&*]+$/.test(value);
     }); 
+}
+
+function initAdminUserCreationvalidation() {
+    $('#setup_user').validate({
+        errorElement: 'label',
+        errorClass: 'error',
+        focusInvalid: false,
+        rules: {
+            email: {
+                required: true,
+            },
+            password: {
+                required: true,
+            },
+            passconf: {
+                equalTo: "#password",
+            },
+            class_id: {
+                required: true,
+            }
+        },
+        messages: {
+            email: {
+                required: "Email is required",
+                email: "Enter valid email address"
+            },
+            password: {
+                required: "Password is required"
+            },
+        },
+        invalidHandler: function (event, validator) { //display error alert on form submit   
+            $('.alert-danger', $('#login_form')).show();
+        },
+        highlight: function (e) {
+            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+        },
+        unhighlight: function (element) { // <-- fires when element is valid
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-info');
+        },
+        success: function (e) {
+            $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+            $(e).remove();
+        },
+        errorPlacement: function (error, element) {
+            if (element.is(':radio')) {
+                error.insertAfter(element.parent().next());
+            }else if (element.is(":checkbox")) {
+                error.insertAfter(element.parent().parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
 }
 
 /**
@@ -86,7 +140,7 @@ function initUserAvailableExamsDataTable() {
         "serverSide": true,
         "lengthMenu": [10, 25, 50, 75, 100],
         "bFilter": true,
-        "aoColumns": [null, null,null, {"bSortable": false}],
+        "aoColumns": [null, null,null,null, {"bSortable": false}],
         "bOrderable": false,
         "aaSorting": [[0, "desc"]],
         "destroy": true,

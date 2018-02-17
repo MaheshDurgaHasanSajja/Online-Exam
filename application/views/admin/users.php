@@ -31,33 +31,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 ?>
 <div class="col-lg-12 mt30">
-    <div class="table-responsive">
+    <div class="col-lg-12 mb20">
+        <a href="<?php echo base_url(); ?>admin/users/create" class='btn btn-primary pull-right'>Add User</a>
+    </div>
+
+    <div class="col-lg-12 table-responsive">
         <table class="table table-bordered" id="list_of_users">
             <thead>
-            <th>
-                ID
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Phone Number
-            </th>
-            <th>
-                Gender
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                Class
-            </th>
-            <th>
-                Actions
-            </th>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Class
+                </th>
+                <th>
+                    Actions
+                </th>
             </thead>
         </table>
     </div>

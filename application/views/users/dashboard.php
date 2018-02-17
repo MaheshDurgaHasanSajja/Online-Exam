@@ -32,13 +32,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="col-lg-12 mt30">
     <div class="table-responsive">
-    <table class="table table-bordered" id="user_available_exams" data-href="<?php echo base_url(); ?>user/dashboard/list_of_available_exams">
+        <table class="table table-bordered" id="user_available_exams" data-href="<?php echo base_url(); ?>user/dashboard/list_of_available_exams">
             <thead>
                 <th>
                     ID
                 </th>
                 <th>
                     Exam Name
+                </th>
+                <th>
+                    Time (mins)
                 </th>
                 <th>
                     Class Name

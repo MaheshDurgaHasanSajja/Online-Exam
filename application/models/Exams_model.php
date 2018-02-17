@@ -233,11 +233,15 @@ class Exams_model extends CI_Model {
                 'formatter' => function($d, $row) {
                     return !empty($d) ? $d : "--";
                 }),
-            array('db' => 'class_name', 'dt' => 2,
+            array('db' => 'exam_time_limit', 'dt' => 2,
                 'formatter' => function($d, $row) {
                     return !empty($d) ? $d : "--";
                 }),
-            array('db' => 'exam_id', 'dt' => 3,
+            array('db' => 'class_name', 'dt' => 3,
+                'formatter' => function($d, $row) {
+                    return !empty($d) ? $d : "--";
+                }),
+            array('db' => 'exam_id', 'dt' => 4,
                 'formatter' => function($d, $row) {
                     $return_string = "<div class='text-center'>";
                     $return_string .= "<a class='btn btn-primary' href='javascript:void(0);'>Take Test</a>";
@@ -249,7 +253,7 @@ class Exams_model extends CI_Model {
         $join = "";
         $join .= " JOIN classes c ON c.id = u.class_id and c.row_status = 1";
         $join .= " JOIN exams e ON e.class_id = c.id and e.row_status = 1 and e.id not in (select exam_id from user_exams where user_id = ".$this->session->userdata['user_session']['id'].")";
-        $query_columns_array = array("u.id as user_id", "exam_name", 'e.id as exam_id', "class_name");
+        $query_columns_array = array("u.id as user_id", "exam_name", 'e.id as exam_id', "class_name", "exam_time_limit");
 
         $custom_where = array(
             "u.row_status = 1",

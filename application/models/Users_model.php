@@ -115,6 +115,7 @@ class Users_model extends CI_Model {
             array('db' => 'id', 'dt' => 7,
                 'formatter' => function($d, $row) {
                     $return_string = "<div class='text-center'>";
+                    $return_string .= '<a  href="' . base_url() . 'admin/users/create/'.$row['id'].'"><i class="fa fa-edit" aria-hidden="true"></i></a>&nbsp&nbsp;&nbsp;&nbsp;';
                     $return_string .= '<a  data-page-load="0" href="javascript:void(0);" data-href="' . base_url() . 'admin/users/delete_user" class="delete-individual" data-message="Are you sure?" data-desc="This will permanently delete the user" data-table-id="list_of_users" data-record-id=' . $row["id"] . '><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
                     $return_string .= "</div>";
                     return $return_string;

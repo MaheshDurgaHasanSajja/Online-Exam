@@ -116,7 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     "value" => set_value('address', ''),
                     "rows" => 5
                     );
-                echo form_input($address);
+                echo form_textarea($address);
                 echo form_error('address');
                 ?>
             </div>
