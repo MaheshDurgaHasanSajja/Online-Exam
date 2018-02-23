@@ -127,7 +127,8 @@ class Users_model extends CI_Model {
         $query_columns_array = array("c.id", "c.name", "email", "gender", "address", "phone_number", "class_id","a.class_name as class_name");
 
         $custom_where = array(
-            "c.row_status = 1"
+            "c.row_status = 1",
+            "c.user_type = '".$request['user_type']."'"
         );
 
         $where = " WHERE ";
@@ -138,4 +139,74 @@ class Users_model extends CI_Model {
         return $result;
     }
 
+    /**
+    * FUnction to get user exams info
+    *
+    * @param array $where_array
+    *
+    * @return array $result_array
+    */
+    public function get_user_exam_info($where_array) {
+        try {
+            return $this->db->where($where_array)
+                            ->select("*")
+                            ->from("users u")
+                            ->join("classes c", "c.id = u.class_id and c.row_status = 1")
+                            ->join("exams e", "e.class_id = c.id and e.row_status = 1")
+                            ->get()
+                            ->result_array();
+        } catch(Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+    * Functiont to get user exam info
+    *
+    * @param int $exam_id
+    *
+    * @return array
+    */
+    public function get_user_exam_data($exam_id) {
+        try {
+            $where_array = array(
+                    "ue.user_id" => $this->session->userdata['user_session']['id'],
+                    "ue.exam_id" => $exam_id,
+                    "ue.row_status" => 1
+                );
+            return $this->db->where($where_array)
+                            ->select("ue.exam_started_time, e.exam_time_limit as exam_time_limit")
+                            ->from("user_exams ue")
+                            ->join("exams e", "e.id = ue.exam_id and e.row_status = 1")
+                            ->get()
+                            ->row_array();
+        } catch(Exception $e) {
+            return false;
+        }
+    }
+
+
+    /**
+    * Functiont to get user exam info
+    *
+    * @param int $exam_id
+    *
+    * @return array
+    */
+    public function get_user_info_based_on_exam($exam_id) {
+        try {
+            $where_array = array(
+                    "uer.exam_id" => $exam_id,
+                    "uer.row_status" => 1
+                );
+            return $this->db->where($where_array)
+                            ->select("name, phone_number")
+                            ->from("user_exam_results uer")
+                            ->join("users u", "u.id = uer.user_id and u.row_status = 1")
+                            ->get()
+                            ->result_array();
+        } catch(Exception $e) {
+            return false;
+        }
+    }
 }

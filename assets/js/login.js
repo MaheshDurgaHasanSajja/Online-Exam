@@ -9,6 +9,7 @@ $(function () {
 function init() {
     initLoginFormValidation();
     initRegisterFormValidation();
+    initFreeTestUserReigstration();
 }
 
 function initLoginFormValidation() {
@@ -17,7 +18,7 @@ function initLoginFormValidation() {
         errorClass: 'error',
         focusInvalid: false,
         rules: {
-            email: {
+            name: {
                 required: true,
             },
             password: {
@@ -25,9 +26,8 @@ function initLoginFormValidation() {
             },
         },
         messages: {
-            email: {
-                required: "Email is required",
-                email: "Enter valid email address"
+            name: {
+                required: "User ID is required"
             },
             password: {
                 required: "Password is required"
@@ -55,7 +55,7 @@ function initRegisterFormValidation() {
         errorClass: 'error',
         focusInvalid: false,
         rules: {
-            email: {
+            name: {
                 required: true,
             },
             password: {
@@ -69,9 +69,8 @@ function initRegisterFormValidation() {
             }
         },
         messages: {
-            email: {
-                required: "Email is required",
-                email: "Enter valid email address"
+            name: {
+                required: "User ID is required",
             },
             password: {
                 required: "Password is required"
@@ -98,6 +97,40 @@ function initRegisterFormValidation() {
             } else {
                 error.insertAfter(element);
             }
+        }
+    });
+}
+
+function initFreeTestUserReigstration() {
+    $('#free_register_form').validate({
+        errorElement: 'label',
+        errorClass: 'error',
+        focusInvalid: false,
+        rules: {
+            name: {
+                required: true,
+            },
+            class_id: {
+                required: true,
+            }
+        },
+        messages: {
+            name: {
+                required: "User ID is required",
+            }
+        },
+        invalidHandler: function (event, validator) { //display error alert on form submit   
+            $('.alert-danger', $('#free_register_form')).show();
+        },
+        highlight: function (e) {
+            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+        },
+        unhighlight: function (element) { // <-- fires when element is valid
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-info');
+        },
+        success: function (e) {
+            $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+            $(e).remove();
         }
     });
 }

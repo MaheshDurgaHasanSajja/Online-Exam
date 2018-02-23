@@ -64,9 +64,9 @@ class Auth extends CI_Controller {
             if($this->form_validation->run('login_form') == false){
                 $this->load->view("admin/login.php");
             } else {
-                $post_data['email'] = strtolower($post_data['email']);
+                $post_data['name'] = $post_data['name'];
                 $where_cond = array(
-                    "email" => $post_data['email'],
+                    "name" => $post_data['name'],
                     "row_status" => 1,
                     "user_type" => "A"
                 );
@@ -97,22 +97,6 @@ class Auth extends CI_Controller {
         renderWithLayout(array('content' => $viewContent), 'admin');
     }
 
-    public function create_admin() {
-        if ($this->session->userdata['admin_session']['email'] == 'maheshhasan07@gmail.com') {
-            $insert_data = array(
-                "name" => "Sahu Minu",
-                "email" => "sahu@gmail.com",
-                "password" => getPasswordHash('Admin@123'),
-                "user_type" => "A",
-                "gender" => "M",
-                "address" => "sample",
-                "created_time" => date("Y-m-d H:i:s")
-            );
-            $this->auth_model->create_user($insert_data);
-        }
-        redirect("admin/auth");
-    }
-
     /**
     * Function to clear the session and logout the user
     * 
@@ -128,10 +112,10 @@ class Auth extends CI_Controller {
     * 
     * @return boolean true or false
     */
-    public function check_email_exists_or_not($str) {
-        $this->form_validation->set_message('check_email_exists_or_not', 'Invalid login details.');
+    public function check_userid_exists_or_not($str) {
+        $this->form_validation->set_message('check_userid_exists_or_not', 'Invalid login details.');
 
-        $where_array = array('email' => $_POST['email'], 'user_type' => 'A', "row_status" => 1);
+        $where_array = array('name' => $_POST['name'], 'user_type' => 'A', "row_status" => 1);
         $user_data = $this->auth_model->get_user_info($where_array);
         if (count($user_data) == 0)
             return false;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin leftbar view
+ * User leftbar view
  *
  * PHP version 7.0.22
  *
@@ -10,24 +10,24 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category    admin_leftbar.php
+ * @category    User_leftbar.php
  * @package     Views
  * @author      Mahesh Sajja <maheshhasan07@gmail.com>
  * @license     http://www.opensource.org/licenses/mit-license.php MIT License
- * @link        http://localhost/online-exam/admin
+ * @link        http://localhost/online-exam/User
  * @dateCreated 02/13/2018  MM/DD/YYYY
  * @dateUpdated 02/13/2018  MM/DD/YYYY 
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * admin_leftbar.php
+ * User_leftbar.php
  *
- * @category admin_leftbar.php
+ * @category User_leftbar.php
  * @package  Views
  * @author   Mahesh Sajja <maheshhasan07@gmail.com>
  * @license  http://www.opensource.org/licenses/mit-license.php MIT License
- * @link     http://localhost/online-exam/admin
+ * @link     http://localhost/online-exam/User
  */
 ?>
 <nav class="navbar-default navbar-static-side" role="navigation">
@@ -45,8 +45,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     IN+
                 </div>
             </li>
-            <li class="<?php echo ($title != "" && $title == "Dashboard") ? "active" : ""; ?>">
+            <li class="list-item-left <?php echo ($this->uri->segment(2) == "dashboard" && $this->uri->segment(3) != "completed_exams") ? "active" : ""; ?>">
                 <a href="<?php echo base_url(); ?>user/dashboard/"> <span class="nav-label">Available Exams</span></a>
+            </li>
+            <li class="list-item-left <?php echo ($this->uri->segment(2) == "dashboard" && $this->uri->segment(3) == "completed_exams") ? "active" : ""; ?>">
+                <a href="<?php echo base_url(); ?>user/dashboard/completed_exams"> <span class="nav-label">Completed Exams</span></a>
             </li>
         </ul>
 

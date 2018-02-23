@@ -35,7 +35,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <head>
 
-        <script type="text/javascript">var SITEURL = "<?php echo base_url(); ?>";</script>
+        <script type="text/javascript">
+          var SITEURL = "<?php echo base_url(); ?>";
+          var CONTROLLER = '<?php echo $this->router->fetch_class(); ?>';
+        </script>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,10 +51,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <!-- Toastr style -->
         <link href="<?php echo base_url(); ?>assets/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>assets/css/plugins/iCheck/custom.css" rel="stylesheet">
 
         <link href="<?php echo base_url(); ?>assets/css/animate.css" rel="stylesheet">
-        <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>assets/css/basic.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
 
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/sweetalert/lib/sweet-alert.css" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dataTables/dataTables.bootstrap.min.css" />
@@ -85,7 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
+        <script src="<?php echo base_url(); ?>assets/js/plugins/iCheck/icheck.min.js"></script>
         <!-- Peity -->
         <script src="<?php echo base_url(); ?>assets/js/plugins/peity/jquery.peity.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/peity-demo.js"></script>

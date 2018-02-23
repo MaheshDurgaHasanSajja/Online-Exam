@@ -33,7 +33,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div class="col-lg-12 mt50">
     <div class="col-lg-12 pull-right mb20">
-        <a href="<?php echo base_url(); ?>admin/exams/setup" class="btn btn-primary pull-right">Add Exam</a>
+    <div class="col-lg-7"></div>
+        <div class="col-lg-3">
+            <?php
+            $options = array(
+                "P" => "Paid users",
+                "F" => "Free users"
+                );
+            $js = 'id="user_type" class="form-control"';
+            echo form_dropdown('user_type', $options, '',$js);
+            ?>
+        </div>
+        <div class="col-lg-2 text-right">
+            <a href="<?php echo base_url(); ?>admin/exams/setup" class="btn btn-primary pull-right">Add Exam</a>
+        </div>
     </div>
     <div class="col-lg-12 table-responsive">
         <table class="table table-bordered" id="list_of_exams">
@@ -41,7 +54,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>ID</th>
                 <th>Class Name</th>
                 <th>Exam Name</th>
-                <th>Exam Time</th>
+                <th>Exam Time (mins)</th>
+                <th>No of questions</th>
+                <th>Registered Users</th>
+                <th>No.of users completed</th>
+                <th>Result</th>
                 <th>Actions</th>
             </thead>
         </table>

@@ -51,11 +51,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li class="<?php echo ($title != "" && $title == "Classes" || ($this->uri->segment(2) == "classes" && $this->uri->segment(3) == "setup")|| $this->uri->segment(2) == "classes") ? "active" : ""; ?>">
                 <a href="<?php echo base_url(); ?>admin/classes"> <span class="nav-label">Classes</span></a>
             </li>
-            <li class="<?php echo ($title != "" && $title == "Exams" || ($this->uri->segment(2) == "exams" && $this->uri->segment(3) == "setup")|| $this->uri->segment(2) == "exams") ? "active" : ""; ?>">
+            <li class="<?php echo ($title != "" && $title == "Exams" || ($this->uri->segment(2) == "exams" && $this->uri->segment(3) == "setup")|| ($this->uri->segment(2) == "exams" && $this->uri->segment(3) != "reports")) ? "active" : ""; ?>">
                 <a href="<?php echo base_url(); ?>admin/exams"><span class="nav-label">Exams</span></a>
             </li>
             <li class="<?php echo ($title != "" && $title == "Questions" || ($this->uri->segment(2) == "questions" && $this->uri->segment(3) == "setup")|| $this->uri->segment(2) == "questions") ? "active" : ""; ?>">
                 <a href="<?php echo base_url(); ?>admin/questions"><span class="nav-label">Questions</span></a>
+            </li>
+            <li class="<?php echo ($title != "" && $title == "Reports" || ($this->uri->segment(2) == "exams" && $this->uri->segment(3) == "reports")|| $this->uri->segment(2) == "questions") ? "active" : ""; ?>">
+            <a href="<?php echo base_url(); ?>admin/exams/reports"><span class="nav-label">Exam Reports</span></a>
             </li>
         </ul>
 

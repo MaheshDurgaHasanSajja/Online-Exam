@@ -81,81 +81,21 @@ function verifyPassword($password_string, $hash_value) {
     return $value;
 }
 
-/**
- * getBrowser
- * @global type $user_agent
- * @return string
- */
-function getBrowser() {
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
-    $browser = "Unknown Browser";
+function my_simple_crypt($string, $action = 'e') {
+    // you may change these values to your own
+    $secret_key = 'e6653209341d14df5423914bdb834fcd';
+    $secret_iv = '11979ce01cb1dac2667bfe1c7a540f36';
 
-    $browser_array = array(
-        '/msie/i' => 'Internet Explorer',
-        '/firefox/i' => 'Firefox',
-        '/safari/i' => 'Safari',
-        '/chrome/i' => 'Chrome',
-        '/opera/i' => 'Opera',
-        '/netscape/i' => 'Netscape',
-        '/maxthon/i' => 'Maxthon',
-        '/konqueror/i' => 'Konqueror',
-        '/mobile/i' => 'Handheld Browser'
-    );
+    $output = false;
+    $encrypt_method = "AES-256-CBC";
+    $key = hash('sha256', $secret_key);
+    $iv = substr(hash('sha256', $secret_iv), 0, 16);
 
-    foreach ($browser_array as $regex => $value) {
-
-        if (preg_match($regex, $user_agent)) {
-            $browser = $value;
-        }
+    if ($action == 'e') {
+        $output = base64_encode(openssl_encrypt($string, $encrypt_method, $key, 0, $iv));
+    } else if ($action == 'd') {
+        $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
     }
 
-    return $browser;
-}
-
-/**
- * getOS
- * @global type $user_agent
- * @return string
- */
-function getOS() {
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
-
-
-    $os_platform = "Unknown OS Platform";
-
-    $os_array = array(
-        '/windows nt 10/i' => 'Windows 10',
-        '/windows nt 6.3/i' => 'Windows 8.1',
-        '/windows nt 6.2/i' => 'Windows 8',
-        '/windows nt 6.1/i' => 'Windows 7',
-        '/windows nt 6.0/i' => 'Windows Vista',
-        '/windows nt 5.2/i' => 'Windows Server 2003/XP x64',
-        '/windows nt 5.1/i' => 'Windows XP',
-        '/windows xp/i' => 'Windows XP',
-        '/windows nt 5.0/i' => 'Windows 2000',
-        '/windows me/i' => 'Windows ME',
-        '/win98/i' => 'Windows 98',
-        '/win95/i' => 'Windows 95',
-        '/win16/i' => 'Windows 3.11',
-        '/macintosh|mac os x/i' => 'Mac OS X',
-        '/mac_powerpc/i' => 'Mac OS 9',
-        '/ubuntu/i' => 'Ubuntu',
-        '/linux/i' => 'Linux',
-        '/iphone/i' => 'iPhone',
-        '/ipod/i' => 'iPod',
-        '/ipad/i' => 'iPad',
-        '/android/i' => 'Android',
-        '/blackberry/i' => 'BlackBerry',
-        '/webos/i' => 'Mobile'
-    );
-
-    foreach ($os_array as $regex => $value) {
-
-        if (preg_match($regex, $user_agent)) {
-            $os_platform = $value;
-            break;
-        }
+    return $output;
     }
-
-    return $os_platform;
-}

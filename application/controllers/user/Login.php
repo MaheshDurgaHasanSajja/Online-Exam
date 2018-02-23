@@ -56,7 +56,7 @@ class Login extends CI_Controller {
     * @return void
     */
     public function index() {
-        if (isset($this->session->userdata['user_session']) && count($this->session->userdata['user_session']) > 0) {
+        if (isset($this->session->userdata['user_session']) && count($this->session->userdata['user_session']) > 0 && isset($this->session->userdata['user_session']['name']) && $this->session->userdata['user_session']['name'] != "") {
             redirect('user/dashboard');
         }
         $post_data = $_POST;
@@ -64,9 +64,9 @@ class Login extends CI_Controller {
             if($this->form_validation->run('login_form') == false){
                 $this->load->view("users/login.php");
             } else {
-                $post_data['email'] = strtolower($post_data['email']);
+                $post_data['name'] = $post_data['name'];
                 $where_cond = array(
-                    "email" => $post_data['email'],
+                    "name" => $post_data['name'],
                     "row_status" => 1,
                     "user_type" => "P"
                     );
@@ -141,10 +141,10 @@ class Login extends CI_Controller {
     * 
     * @return boolean true or false
     */
-    public function check_email_exists_or_not($str) {
-        $this->form_validation->set_message('check_email_exists_or_not', 'Invalid login details.');
+    public function check_userid_exists_or_not($str) {
+        $this->form_validation->set_message('check_userid_exists_or_not', 'Invalid login details.');
 
-        $where_array = array('email' => $_POST['email'], 'user_type' => 'P', "row_status" => 1);
+        $where_array = array('name' => $_POST['name'], 'user_type' => 'P', "row_status" => 1);
         $user_data = $this->auth_model->get_user_info($where_array);
         if (count($user_data) == 0)
             return false;
@@ -161,10 +161,10 @@ class Login extends CI_Controller {
     * 
     * @return boolean true or false
     */
-    public function check_register_email_exists_or_not($str) {
-        $this->form_validation->set_message('check_register_email_exists_or_not', 'Email already exists.');
+    public function check_register_name_exists_or_not($str) {
+        $this->form_validation->set_message('check_register_name_exists_or_not', 'User ID already exists.');
 
-        $where_array = array('email' => $_POST['email'], 'user_type' => 'P', "row_status" => 1);
+        $where_array = array('name' => $_POST['name'], 'user_type' => 'P', "row_status" => 1);
         $user_data = $this->auth_model->get_user_info($where_array);
         if (count($user_data) > 0)
             return false;

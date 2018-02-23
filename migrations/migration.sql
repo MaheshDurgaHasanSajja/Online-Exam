@@ -35,6 +35,7 @@ CREATE TABLE exams(
     `class_id` int(11) NOT NULL COMMENT 'Primary key of classes table',
     `exam_name` varchar(255) NOT NULL COMMENT 'Name of an exam',
     `exam_time_limit` int(11) NOT NULL COMMENT 'Time limit of an exam',
+    `no_of_questions` int(11) NOT NULL COMMENT 'No of questions for the exam',
     `schduled_date` datetime DEFAULT NULL COMMENT 'When you want to start the exam',
     `created_time` datetime COMMENT 'Migration created date and time',
     `modified_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Record updated time',
@@ -81,6 +82,20 @@ CREATE TABLE user_questions(
     `exam_id` int(11) NOT NULL COMMENT 'Primary key of exams table',
     `question_id` int(11) NOT NULL COMMENT 'Primary key of questions table',
     `user_answer` int(11) NOT NULL COMMENT 'Answer of an user',
+    `row_status` int(11) DEFAULT 1 COMMENT 'Row status of an user whether active or not 1- Active, 0 - In active',
+    `created_time` datetime DEFAULT NULL COMMENT 'Created time of an user',
+    `modified_time` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'MOdified time of user record',
+    `client_id` int(11) DEFAULT 1 COMMENT 'Primary key of clients table'
+)AUTO_INCREMENT = 1;
+
+DROP TABLE IF EXISTS user_exam_results;
+
+CREATE TABLE user_exam_results(
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary key of user taken exams table',
+    `user_id` int(11) NOT NULL COMMENT 'Primary key of users table',
+    `exam_id` int(11) NOT NULL COMMENT 'Primary key of exams table',
+    `marks` int(11) NOT NULL COMMENT 'Marks gained by user',
+    `total_marks` int(11) NOT NULL COMMENT 'Total marks of an exam',
     `row_status` int(11) DEFAULT 1 COMMENT 'Row status of an user whether active or not 1- Active, 0 - In active',
     `created_time` datetime DEFAULT NULL COMMENT 'Created time of an user',
     `modified_time` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'MOdified time of user record',

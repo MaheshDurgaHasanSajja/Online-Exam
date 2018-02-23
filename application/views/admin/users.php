@@ -32,7 +32,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="col-lg-12 mt30">
     <div class="col-lg-12 mb20">
-        <a href="<?php echo base_url(); ?>admin/users/create" class='btn btn-primary pull-right'>Add User</a>
+        <div class="col-lg-7"></div>
+        <div class="col-lg-3">
+            <?php
+            $options = array(
+                "P" => "Paid users",
+                "F" => "Free users"
+                );
+            $js = 'id="user_type" class="form-control text-right"';
+            echo form_dropdown('user_type', $options, '',$js);
+            ?>
+        </div>
+        <div class="col-lg-2">
+            <a href="<?php echo base_url(); ?>admin/users/create" class='btn btn-primary pull-right'>Add User</a>
+        </div>
     </div>
 
     <div class="col-lg-12 table-responsive">

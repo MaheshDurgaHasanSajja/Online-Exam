@@ -44,7 +44,7 @@ class Exams extends CI_Controller {
      */
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('exams_model', 'classes_model'));
+        $this->load->model(array('exams_model', 'classes_model', 'users_model'));
         $this->load->library(array('session', 'form_validation', 'Authorization'));
         $this->load->helper(array('datatable'));
         $this->form_validation->set_error_delimiters('<label class="error">', '</label>');
@@ -93,7 +93,7 @@ class Exams extends CI_Controller {
             $where_cond = array(
                 "row_status" => 1,
                 "id" => $exam_id
-            );
+                );
             $exam_data = $this->exams_model->get_exam_info($where_cond);
             $this->data['exam_info'] = $exam_data;
         }
@@ -107,8 +107,9 @@ class Exams extends CI_Controller {
                     "exam_name" => $post_data['exam_name'],
                     "class_id" => $post_data['class_id'],
                     "exam_time_limit" => $post_data['exam_time_limit'],
+                    "no_of_questions" => $post_data['no_of_questions'],
                     "created_time" => date("Y-m-d H:i:s")
-                );
+                    );
                 $this->exams_model->insert_exam_info($insert_data, $exam_id);
                 
                 $successmessage = "Exam added successfully.";
@@ -134,23 +135,95 @@ class Exams extends CI_Controller {
         $post_data = $_POST;
         $where_cond = array(
             "id" => $post_data['id'],
-        );
+            );
         $update_data = array(
             "row_status" => 0
-        );
+            );
         $status = $this->exams_model->update_exam_data($where_cond, $update_data);
         if ($status) {
             echo json_encode(array(
                 "status" => "success",
                 "message" => "Exam deleted successfully."
-            ));
+                ));
             exit;
         }
         echo json_encode(array(
-                "status" => "success",
-                "message" => "Exam deletion failed."
+            "status" => "success",
+            "message" => "Exam deletion failed."
             ));
+        exit;
+    }
+
+    /**
+    * Function to post results of users
+    *
+    * @return boolean true or false
+    */
+    public function post_results() {
+        $post_data = $_POST;
+        $result = $this->exams_model->get_exam_result_by_id($post_data['exam_id']);
+        $insert_data = array();
+        if (empty($result)) {
+            echo json_encode(array("status" => 400, "msg" => "No users to post the result."));
             exit;
+        }
+        for ($i=0; $i < count($result); $i++) { 
+            $insert_data[$i]['user_id'] = $result[$i]['user_id'];
+            $insert_data[$i]['exam_id'] = $post_data['exam_id'];
+            $insert_data[$i]['marks'] = $result[$i]['user_gained_marks'];
+            $insert_data[$i]['total_marks'] = $result[$i]['total_marks'];
+            $insert_data[$i]['created_time'] = date("Y-m-d H:i:s");
+        }
+        $status = $this->exams_model->insert_user_exam_results($insert_data, $post_data['exam_id'], $post_data['save_result']);
+        if ($status) {
+            echo json_encode(array("status" => 200, "msg" => "You have successfully posted the results!"));
+            exit;
+        }
+        echo json_encode(array("status" => 400, "msg" => "Error occured! Please try again."));
+        exit;
+    }
+
+    public function reports() {
+        $this->data['title'] = "Reports";
+        $where_cond = array(
+            "row_status" => 1
+            );
+        $this->data['exam_info'] = $this->exams_model->all_exam_info($where_cond);
+        $viewContent = $this->load->view('admin/reports', $this->data, true);
+        renderWithLayout(array('content' => $viewContent), 'admin');
+    }
+
+    /**
+    * Function to load list of exam reports
+    *
+    * @return json
+    */
+    public function load_list_of_exam_reports() {
+        $request = $_GET;
+        $result = $this->exams_model->load_list_of_exam_reports_data($request, array());
+        $result = getUtfData($result);
+        echo json_encode($result);
+        exit;
+    }
+
+    /**
+    * Function to get exams report
+    *
+    * @return data
+    */
+    public function export() {
+        $exam_id = $this->uri->segment(4);
+        $user_type = $this->uri->segment(5);
+        $query_object = $this->exams_model->export_exam_report($exam_id, $user_type);
+        $file_name = time()."_report.csv";
+
+        if (is_object($query_object) && $query_object->num_rows() > 0) {
+            $data = $this->authorization->query_to_csv($query_object);
+            $this->authorization->force_download($file_name, $data);
+        } else {
+            $this->session->set_flashdata("errormessage", "No data found.");
+            redirect('admin/exams/reports');
+        }
     }
 
     /**
@@ -167,12 +240,23 @@ class Exams extends CI_Controller {
             "row_status" => 1,
             "exam_name" => $post_data['exam_name'],
             "class_id" => $post_data['class_id']
-        );
+            );
         if ($post_data['page_type'] == "Edit")
             $where_cond['id != '] = $post_data['exam_id'];
         $exam_data = $this->exams_model->get_exam_info($where_cond);
         if (count($exam_data) > 0)
             return false;
         return true;
+    }
+
+    public function send_notification() {
+        $post_data = $_POST;
+        $user_info = $this->users_model->get_user_info_based_on_exam($post_data['exam_id']);
+        if (empty($user_info)) {
+            echo json_encode(array("status" => 500, "msg" => "Exam results are not posted yet."));
+            exit;
+        }
+        echo json_encode(array("status" => 200, "msg" => "Notification has been sent successfully."));
+        exit;
     }
 }

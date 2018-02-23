@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$submit_url = "admin/exams/setup/".$exam_info['id'];
 			echo form_open(base_url($submit_url), array('name' => 'setup_exam', 'id' => 'setup_exam' ));
 			echo form_hidden("page_type", $page_type);
-			echo form_hidden("class_id", (isset($exam_info['id'])?$exam_info['id']:0));
+			echo form_hidden("exam_id", (isset($exam_info['id'])?$exam_info['id']:0));
 		?>
 		<div class="col-lg-12 form-group">
 			<label class="col-lg-4 control-label">Exam name</label>
@@ -68,7 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	        </div>
 	    </div>
 	    <div class="col-lg-12 form-group">
-			<label class="col-lg-4 control-label">Exam Time Limit</label>
+			<label class="col-lg-4 control-label">Exam Time Limit (mins)</label>
 	        <div class="col-lg-8">
 	        	<?php
 	        		if (!isset($exam_info)) {
@@ -89,6 +89,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		            );
 		            echo form_input($exam_time_limit);
 		            echo form_error('exam_time_limit');
+		        ?>
+	        </div>
+	    </div>
+	    <div class="col-lg-12 form-group">
+			<label class="col-lg-4 control-label">No of Questions</label>
+	        <div class="col-lg-8">
+	        	<?php
+	        		if (!isset($exam_info)) {
+                        $namevalue = set_value('no_of_questions');
+                    } else {
+                        $value = set_value('no_of_questions');
+                        if (empty($value)) {
+                            $namevalue = $exam_info['no_of_questions'];
+                        } else {
+                            $namevalue = $value;
+                        }
+                    }
+		            $no_of_questions = array("name" => "no_of_questions",
+		                "id" => "no_of_questions",
+		                "class" => "required form-control",
+		                "placeholder" => "10",
+		                "value" => $namevalue
+		            );
+		            echo form_input($no_of_questions);
+		            echo form_error('no_of_questions');
 		        ?>
 	        </div>
 	    </div>

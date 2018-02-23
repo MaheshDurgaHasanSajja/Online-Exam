@@ -14,7 +14,7 @@
  * @package     Views
  * @author      Mahesh Sajja <maheshhasan07@gmail.com>
  * @license     http://www.opensource.org/licenses/mit-license.php MIT License
- * @link        http://localhost/online-exam/admin
+ * @link        http://localhost/online-exam/user/login
  * @dateCreated 02/13/2018  MM/DD/YYYY
  * @dateUpdated 02/13/2018  MM/DD/YYYY 
  */
@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @package  Views
  * @author   Mahesh Sajja <maheshhasan07@gmail.com>
  * @license  http://www.opensource.org/licenses/mit-license.php MIT License
- * @link     http://localhost/online-exam/admin
+ * @link     http://localhost/online-exam/user/login
  */
 ?>
 <!DOCTYPE html>
@@ -53,8 +53,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
     <ul class="nav navbar-top-links navbar-right">
       <li>
-      <a href="<?php echo base_url(); ?>admin/auth">
+        <a href="<?php echo base_url(); ?>admin/auth">
           Admin
+        </a>
+      </li>
+      <li>
+        <a href="<?php echo base_url(); ?>home/freetest">
+          Free Test
         </a>
       </li>
     </ul>
@@ -86,14 +91,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           ?>
           <div class="form-group">
             <?php
-            $email = array("name" => "email",
-              "id" => "email",
-              "class" => "required form-control",
-              "placeholder" => "Your Email Address",
-              "value" => set_value('email', '')
+            $name = array("name" => "name",
+              "id" => "name",
+              "class" => "form-control",
+              "placeholder" => "User ID",
+              "value" => set_value('name', '')
               );
-            echo form_input($email);
-            echo form_error('email');
+            echo form_input($name);
+            echo form_error('name');
             ?>
           </div>
           <div class="form-group">

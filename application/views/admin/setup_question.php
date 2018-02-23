@@ -190,7 +190,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		    <div class="col-lg-2"></div>
 		    <div class="col-lg-8 pull-right no-padding">
 			    <div class="col-lg-4">
-			    	<button type="submit" class="btn btn-primary block full-width m-b"><?php echo ($page_type == "Add")?$page_type:"Save"; ?></button>
+			    	<button type="submit" id="setup_question_button" class="btn btn-primary block full-width m-b"><?php echo ($page_type == "Add")?$page_type:"Save"; ?></button>
 			    </div>
 			    <div class="col-lg-4">
 			    	<a href="<?php echo base_url() ?>admin/questions/index/<?php echo $class_id; ?>" class="btn btn-default block full-width m-b">Cancel</a>

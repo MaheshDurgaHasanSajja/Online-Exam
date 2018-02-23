@@ -626,3 +626,18 @@ table h1,table h2,table h3,table h4,table h5,table h6,table p,table ul,table ol,
 .ml80{margin-left:none !important;}
 .tl {text-align: center !important;}
 }
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    z-index: 10000;
+    background: url("../images/loading.gif") center center no-repeat;
+    background-color: #e9e9e9;
+}

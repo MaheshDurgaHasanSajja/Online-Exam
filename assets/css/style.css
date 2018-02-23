@@ -7514,3 +7514,34 @@ body.skin-3 {
         display: none;
     }
 }
+
+.home-screen {
+    background-image: url("../images/homescreen1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding-top:50px;
+}
+
+.mt50 {
+    margin-top: 50px;
+}
+
+.mt30 {
+    margin-top: 30px;
+}
+
+.mt75 {
+    margin-top: 75px;
+}
+
+.pt50 {
+    padding-top: 50px;
+}
+
+.white-text {
+    color:#fff;
+}
+.f16{
+    font-size: 16px;
+}

@@ -35,13 +35,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <head>
 
-  <script type="text/javascript">var SITEURL = "<?php echo base_url(); ?>";</script>
+  <script type="text/javascript">
+  var SITEURL = "<?php echo base_url(); ?>";
+  var CONTROLLER = '<?php echo $this->router->fetch_class(); ?>';
+  </script>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>INSPINIA | Dashboard</title>
+  <title>Online Exam | Dashboard</title>
 
   <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">

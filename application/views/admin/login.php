@@ -69,14 +69,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             ?>
             <div class="form-group">
                 <?php
-                $email = array("name" => "email",
-                    "id" => "email",
+                $name = array("name" => "name",
+                    "id" => "name",
                     "class" => "required form-control",
-                    "placeholder" => "Your Email Address",
-                    "value" => set_value('email', '')
+                    "placeholder" => "User ID",
+                    "value" => set_value('name', '')
                     );
-                echo form_input($email);
-                echo form_error('email');
+                echo form_input($name);
+                echo form_error('name');
                 ?>
             </div>
             <div class="form-group">
