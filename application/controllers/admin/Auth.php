@@ -56,6 +56,7 @@ class Auth extends CI_Controller {
      * @return void
      */
     public function index() {
+        // Adding a comment to raise a PR for testing the pull request template
         if (isset($this->session->userdata['admin_session']) && count($this->session->userdata['admin_session']) > 0) {
             redirect('admin/users');
         }
